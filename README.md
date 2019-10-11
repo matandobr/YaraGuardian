@@ -1,8 +1,53 @@
 [![Build Status](https://travis-ci.org/PUNCH-Cyber/YaraGuardian.svg?branch=master)](https://travis-ci.org/PUNCH-Cyber/YaraGuardian)
 [![Coverage Status](https://coveralls.io/repos/github/PUNCH-Cyber/YaraGuardian/badge.svg?branch=master)](https://coveralls.io/github/PUNCH-Cyber/YaraGuardian?branch=master)
 
-YaraGuardian
+YaraGuardian - windows fork
 ============
+This is not the official branch, this is just a simple windows guide for this great project.
+
+Windows manual
+------------------
+Tested on Windows 10 
+* prerequisite
+  * Make sure to have [Visual studio build tools](http://go.microsoft.com/fwlink/?LinkId=691126&fixForIE=.exe.) + python3 + installed
+  * Install [Postgres](https://www.enterprisedb.com/thank-you-downloading-postgresql?anid=1256722) - pgAdmin is recommended as well
+  * Install [node + npm](https://nodejs.org/dist/v10.16.3/node-v10.16.3-x86.msi)
+* DB config (snippets from pgAdmin, but you are welcome to use the command line)
+  * Create user
+  ![](docs/postgres_create_user.PNG?raw=true "")
+  (don't forget to configure password)
+  ![](docs/postgres_create_user_password.PNG?raw=true "")
+  * Create a DB (make the user created the owner of it)
+  ![](docs/postgres_create_database.PNG?raw=true "")
+  * Create hstore extension to the DB
+  ![](docs/postgres_create_database_hstore.PNG?raw=true "")
+  * Note that if you're not using the default address/port/DB name or user, make sure to update the config.json file
+* Environment setup
+  * Clone this repo and cd into it (git clone https://github.com/matandobr/YaraGuardian)
+  * Create & activate virtual environment (recommended)
+    * virtualenv venv (or python3 -m virtualenv venv)
+    * .\venv\Scripts\activate.bat (run this with cmd and not PowerShell)
+  * Install packages
+    * pip install -r requirements.txt
+  * setup web components
+    * npm install
+    * npm install yarn -g
+    * yarn
+    * yarn webpack
+  * Setup Django environment
+    * python manage.py createsuperuser (enter admin credentials)
+    * python manage.py makemigrations
+    * python manage.py migrate
+    * python manage.py collectstatic
+    
+Run the server with python manage.py runserver
+
+Good luck!
+    
+@matan_dob
+
+Overview
+------------------
 A django web interface for managing Yara rules. The manager enables users to:
 
     * Search for specific rules based on rule characteristics
